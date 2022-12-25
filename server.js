@@ -3,13 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
+const routes = require("./routes");
+
 const cors = require("cors");
 app.use(cors());
 
 const bodyParser = require("body-parser").json();
 app.use(bodyParser);
-
-const router = express.Router()
 
 app.use(express.static("public"));
 
