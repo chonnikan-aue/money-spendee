@@ -1,3 +1,5 @@
 module.exports = {
-  transactions: require("./transactions"),
+  deposits: require("./deposits"),
+  withdraws: require("./wihdraws"),
+  users: require("./users"),
 };
