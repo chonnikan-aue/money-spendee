@@ -1,5 +1,5 @@
 module.exports = {
   deposits: require("./deposits"),
-  withdraws: require("./wihdraws"),
+  withdraws: require("./withdraws"),
   users: require("./users"),
 };
