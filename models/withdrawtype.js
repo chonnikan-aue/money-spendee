@@ -9,16 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       WithdrawType.hasMany(models.Withdraw, { foreignKey: "typeId" });
-      WithdrawType.belongsToMany(models.User, {
-        foreignKey: "typeId",
-        otherKey: "userId",
-        through: "WithdrawTypeUser",
-      });
+      WithdrawType.belongsTo(models.User, { foreignKey: "userId" });
     }
   }
   WithdrawType.init(
     {
       name: DataTypes.STRING,
+      userId: DataTypes.INTEGER,
+      budgetPercent: DataTypes.FLOAT,
+      alertPercent: DataTypes.FLOAT,
     },
     {
       sequelize,
