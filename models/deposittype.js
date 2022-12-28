@@ -10,16 +10,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       DepositType.hasMany(models.Deposit, { foreignKey: "typeId" });
       DepositType.hasMany(models.Withdraw, { foreignKey: "withdrawFromId" });
-      DepositType.belongsToMany(models.User, {
-        foreignKey: "typeId",
-        otherKey: "userId",
-        through: "DepositTypeUser",
-      });
+      DepositType.belongsTo(models.User, { foreignKey: "userId" });
     }
   }
   DepositType.init(
     {
       name: DataTypes.STRING,
+      userId: DataTypes.INTEGER,
+      budgetPercent: DataTypes.FLOAT,
+      alertPercent: DataTypes.FLOAT,
     },
     {
       sequelize,

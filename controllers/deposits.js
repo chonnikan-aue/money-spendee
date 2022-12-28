@@ -1,48 +1,145 @@
+const User = require("../models").User;
 const Deposit = require("../models").Deposit;
+const DepositType = require("../models").DepositType;
 
 const getDeposits = (req, res) => {
-  Deposit.findAll().then((deposits) => {
-    res.json(deposits);
-  });
-};
-
-const getDeposit = (req, res) => {
-  Deposit.findByPk(req.params.depositId).then((deposit) => {
-    res.json(deposit);
-  });
+  Deposit.findAll({
+    include: [
+      {
+        model: DepositType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+      {
+        model: User,
+        attributes: ["id", "username"],
+      },
+    ],
+    attributes: ["id", "name", "amount", "date", "typeId", "userId"],
+  })
+    .then((deposits) => {
+      res.json(deposits);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 };
 
 const getDepositsByUser = (req, res) => {
-  Withdraw.findAll({
+  Deposit.findAll({
     where: {
       userId: req.params.userId,
     },
-  }).then((deposits) => {
-    res.json(deposits);
-  });
+    include: [
+      {
+        model: DepositType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+      {
+        model: User,
+        attributes: ["id", "username"],
+      },
+    ],
+    attributes: ["id", "name", "amount", "date", "typeId", "userId"],
+  })
+    .then((deposits) => {
+      res.json(deposits);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+};
+
+const getDeposit = (req, res) => {
+  Deposit.findByPk(req.params.depositId, {
+    include: [
+      {
+        model: DepositType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+      {
+        model: User,
+        attributes: ["id", "username"],
+      },
+    ],
+    attributes: ["id", "name", "amount", "date", "typeId", "userId"],
+  })
+    .then((deposit) => {
+      res.json(deposit);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 };
 
 const postDeposit = (req, res) => {
-  Deposit.create(req.body).then((newDeposit) => {
-    res.json(newDeposit);
-  });
+  req.body.userId = req.params.userId;
+  Deposit.create(req.body)
+    .then((newDeposit) => {
+      Deposit.findByPk(newDeposit.id, {
+        include: [
+          {
+            model: DepositType,
+            attributes: ["id", "name", "budgetPercent", "alertPercent"],
+          },
+          {
+            model: User,
+            attributes: ["id", "username"],
+          },
+        ],
+        attributes: ["id", "name", "amount", "date", "typeId", "userId"],
+      })
+        .then((deposit) => {
+          res.json(deposit);
+        })
+        .catch((err) => {
+          res.json(err);
+        });
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 };
 
 const putDeposit = (req, res) => {
+  req.body.userId = req.params.userId;
   Deposit.update(req.body, {
     where: { id: req.params.depositId },
     returning: true,
-  }).then((updatedDeposit) => {
-    Deposit.findByPk(req.params.depositId).then((deposit) => {
-      res.json(deposit);
+  })
+    .then((updatedDeposit) => {
+      Deposit.findByPk(req.params.depositId, {
+        include: [
+          {
+            model: DepositType,
+            attributes: ["id", "name", "budgetPercent", "alertPercent"],
+          },
+          {
+            model: User,
+            attributes: ["id", "username"],
+          },
+        ],
+        attributes: ["id", "name", "amount", "date", "typeId", "userId"],
+      })
+        .then((deposit) => {
+          res.json(deposit);
+        })
+        .catch((err) => {
+          res.json(err);
+        });
+    })
+    .catch((err) => {
+      res.json(err);
     });
-  });
 };
 
 const deleteDeposit = (req, res) => {
-  Deposit.destroy({ where: { id: req.params.depositId } }).then(() => {
-    res.json({ message: "Deposit deleted" });
-  });
+  Deposit.destroy({ where: { id: req.params.depositId } })
+    .then(() => {
+      res.json({ message: "Deposit deleted" });
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 };
 
 module.exports = {

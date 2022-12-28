@@ -1,15 +1,40 @@
+const User = require("../models").User;
 const Withdraw = require("../models").Withdraw;
+const DepositType = require("../models").DepositType;
+const WithdrawType = require("../models").WithdrawType;
 
 const getWithdraws = (req, res) => {
-  Withdraw.findAll().then((withdraws) => {
-    res.json(withdraws);
-  });
-};
-
-const getWithdraw = (req, res) => {
-  Withdraw.findByPk(req.params.withdrawId).then((withdraw) => {
-    res.json(withdraw);
-  });
+  Withdraw.findAll({
+    include: [
+      {
+        model: WithdrawType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+      {
+        model: DepositType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+      {
+        model: User,
+        attributes: ["id", "username"],
+      },
+    ],
+    attributes: [
+      "id",
+      "name",
+      "amount",
+      "date",
+      "typeId",
+      "withdrawFromId",
+      "userId",
+    ],
+  })
+    .then((withdraws) => {
+      res.json(withdraws);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 };
 
 const getWithdrawsByUser = (req, res) => {
@@ -17,38 +42,171 @@ const getWithdrawsByUser = (req, res) => {
     where: {
       userId: req.params.userId,
     },
-  }).then((withdraws) => {
-    res.json(withdraws);
-  });
+    include: [
+      {
+        model: WithdrawType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+      {
+        model: DepositType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+      {
+        model: User,
+        attributes: ["id", "username"],
+      },
+    ],
+    attributes: [
+      "id",
+      "name",
+      "amount",
+      "date",
+      "typeId",
+      "withdrawFromId",
+      "userId",
+    ],
+  })
+    .then((withdraws) => {
+      res.json(withdraws);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+};
+
+const getWithdraw = (req, res) => {
+  Withdraw.findByPk(req.params.withdrawId, {
+    include: [
+      {
+        model: WithdrawType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+      {
+        model: DepositType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+      {
+        model: User,
+        attributes: ["id", "username"],
+      },
+    ],
+    attributes: [
+      "id",
+      "name",
+      "amount",
+      "date",
+      "typeId",
+      "withdrawFromId",
+      "userId",
+    ],
+  })
+    .then((withdraw) => {
+      res.json(withdraw);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 };
 
 const postWithdraw = (req, res) => {
-  Withdraw.create(req.body).then((newWithdraw) => {
-    res.json(newWithdraw);
-  });
+  req.body.userId = req.params.userId;
+  Withdraw.create(req.body)
+    .then((newWithdraw) => {
+      Withdraw.findByPk(newWithdraw.id, {
+        include: [
+          {
+            model: WithdrawType,
+            attributes: ["id", "name", "budgetPercent", "alertPercent"],
+          },
+          {
+            model: DepositType,
+            attributes: ["id", "name", "budgetPercent", "alertPercent"],
+          },
+          {
+            model: User,
+            attributes: ["id", "username"],
+          },
+        ],
+        attributes: [
+          "id",
+          "name",
+          "amount",
+          "date",
+          "typeId",
+          "withdrawFromId",
+          "userId",
+        ],
+      })
+        .then((withdraws) => {
+          res.json(withdraws);
+        })
+        .catch((err) => {
+          res.json(err);
+        });
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 };
 
 const putWithdraw = (req, res) => {
+  req.body.userId = req.params.userId;
   Withdraw.update(req.body, {
     where: { id: req.params.withdrawId },
     returning: true,
-  }).then((updatedWithdraw) => {
-    Withdraw.findByPk(req.params.withdrawId).then((withdraw) => {
-      res.json(withdraw);
+  })
+    .then((updatedWithdraw) => {
+      Withdraw.findByPk(req.params.withdrawId, {
+        include: [
+          {
+            model: WithdrawType,
+            attributes: ["id", "name", "budgetPercent", "alertPercent"],
+          },
+          {
+            model: DepositType,
+            attributes: ["id", "name", "budgetPercent", "alertPercent"],
+          },
+          {
+            model: User,
+            attributes: ["id", "username"],
+          },
+        ],
+        attributes: [
+          "id",
+          "name",
+          "amount",
+          "date",
+          "typeId",
+          "withdrawFromId",
+          "userId",
+        ],
+      })
+        .then((withdraws) => {
+          res.json(withdraws);
+        })
+        .catch((err) => {
+          res.json(err);
+        });
+    })
+    .catch((err) => {
+      res.json(err);
     });
-  });
 };
 
 const deleteWithdraw = (req, res) => {
-  Withdraw.destroy({ where: { id: req.params.withdrawId } }).then(() => {
-    res.json({ message: "Withdraw deleted" });
-  });
+  Withdraw.destroy({ where: { id: req.params.withdrawId } })
+    .then(() => {
+      res.json({ message: "Withdraw deleted" });
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 };
 
 module.exports = {
   getWithdraws,
-  getWithdraw,
   getWithdrawsByUser,
+  getWithdraw,
   postWithdraw,
   putWithdraw,
   deleteWithdraw,

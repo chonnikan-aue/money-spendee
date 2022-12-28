@@ -1,94 +1,132 @@
 const User = require("../models").User;
 const Deposit = require("../models").Deposit;
 const Withdraw = require("../models").Withdraw;
-const DepositTypeUser = require("../models").DepositTypeUser;
-const WithdrawTypeUser = require("../models").WithdrawTypeUser;
+const DepositType = require("../models").DepositType;
+const WithdrawType = require("../models").WithdrawType;
 
 const bcrypt = require("bcryptjs");
 
 const getUsers = (req, res) => {
-  User.findAll().then((users) => {
-    res.json(users);
-  });
+  User.findAll({
+    attributes: ["id", "username"],
+  })
+    .then((users) => {
+      res.json(users);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 };
 
 const getUser = (req, res) => {
-  User.findByPk(req.params.id).then((user) => {
-    res.json(user);
-  });
-};
-
-const login = (req, res) => {
-  User.findOne({
-    where: {
-      username: req.body.username,
-    },
-  }).then((user) => {
-    if (user) {
-      bcrypt.compare(req.body.password, user.password, (err, match) => {
-        if (match) {
-          res.json(user);
-        } else {
-          //   return res.status(400).json(err);
-          return res.sendStatus(400);
-        }
-      });
-    }
-  });
-};
-
-const signup = (req, res) => {
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) return res.status(500).json(err);
-    bcrypt.hash(req.body.password, salt, (err, hashedPassword) => {
-      if (err) return res.status(500).json(err);
-      req.body.password = hashedPassword;
-      User.create(req.body)
-        .then((newUser) => {
-          res.json(newUser);
-        })
-        .catch((err) => {
-          console.log(err);
-          res.send(`error: ${err}`);
-        });
+  User.findByPk(req.params.userId, {
+    attributes: ["id", "username"],
+  })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.json(err);
     });
-  });
 };
 
 const putUser = (req, res) => {
-  User.update(req.body, {
-    where: { id: req.params.id },
-    returning: true,
-  }).then((updatedUser) => {
-    User.findByPk(req.params.id).then((user) => {
-      res.json(user);
+  if (req.body.password) {
+    bcrypt.genSalt(10, (err, salt) => {
+      if (err) return res.sendStatus(500);
+      bcrypt.hash(req.body.password, salt, (err, hashedPassword) => {
+        if (err) return res.sendStatus(500);
+        req.body.password = hashedPassword;
+        User.update(req.body, {
+          where: { id: req.params.userId },
+          returning: true,
+        })
+          .then((updatedUser) => {
+            User.findByPk(req.params.userId, {
+              attributes: ["id", "username"],
+            })
+              .then((user) => {
+                res.json(user);
+              })
+              .catch((err) => {
+                res.json(err);
+              });
+          })
+          .catch((err) => {
+            res.json(err);
+          });
+      });
     });
-  });
+  } else {
+    User.findByPk(req.params.userId, {
+      attributes: ["id", "username", "password"],
+    })
+      .then((user) => {
+        req.body.password = user.password;
+        User.update(req.body, {
+          where: { id: req.params.userId },
+          returning: true,
+        })
+          .then((updatedUser) => {
+            User.findByPk(req.params.userId, {
+              attributes: ["id", "username"],
+            })
+              .then((user) => {
+                res.json(user);
+              })
+              .catch((err) => {
+                res.json(err);
+              });
+          })
+          .catch((err) => {
+            res.json(err);
+          });
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  }
 };
 
 const deleteUser = (req, res) => {
-  User.destroy({ where: { id: req.params.id } }).then(() => {
-    Deposit.destroy({ where: { userId: req.params.id } }).then(() => {
-      Withdraw.destroy({ where: { userId: req.params.id } }).then(() => {
-        WithdrawTypeUser.destroy({ where: { userId: req.params.id } }).then(
-          () => {
-            DepositTypeUser.destroy({ where: { userId: req.params.id } }).then(
-              () => {
-                res.json({ message: "User deleted" });
-              }
-            );
-          }
-        );
-      });
+  User.destroy({ where: { id: req.params.userId } })
+    .then(() => {
+      Deposit.destroy({ where: { userId: req.params.userId } })
+        .then(() => {
+          Withdraw.destroy({ where: { userId: req.params.userId } })
+            .then(() => {
+              WithdrawType.destroy({ where: { userId: req.params.userId } })
+                .then(() => {
+                  DepositType.destroy({
+                    where: { userId: req.params.userId },
+                  })
+                    .then(() => {
+                      res.json({ message: "User deleted" });
+                    })
+                    .catch((err) => {
+                      res.json(err);
+                    });
+                })
+                .catch((err) => {
+                  res.json(err);
+                });
+            })
+            .catch((err) => {
+              res.json(err);
+            });
+        })
+        .catch((err) => {
+          res.json(err);
+        });
+    })
+    .catch((err) => {
+      res.json(err);
     });
-  });
 };
 
 module.exports = {
   getUsers,
   getUser,
-  login,
-  signup,
   putUser,
   deleteUser,
 };

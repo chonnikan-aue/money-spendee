@@ -12,7 +12,18 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      budgetPercent: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+      },
+      alertPercent: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -23,6 +34,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date(),
+      },
+    },
+    {
+      uniqueKeys: {
+        actions_unique: {
+          fields: ["name", "userId"],
+        },
       },
     });
   },

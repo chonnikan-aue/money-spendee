@@ -8,9 +8,39 @@ module.exports = {
       [
         {
           name: "Daily Expenses",
+          userId: 1,
+          budgetPercent: 40,
+          alertPercent: 90,
+        },
+        {
+          name: "Daily Expenses",
+          userId: 2,
+          budgetPercent: 40,
+          alertPercent: 90,
+        },
+        {
+          name: "Daily Expenses",
+          userId: 3,
+          budgetPercent: 40,
+          alertPercent: 90,
         },
         {
           name: "Investment",
+          userId: 1,
+          budgetPercent: 20,
+          alertPercent: 90,
+        },
+        {
+          name: "Investment",
+          userId: 2,
+          budgetPercent: 20,
+          alertPercent: 90,
+        },
+        {
+          name: "Investment",
+          userId: 3,
+          budgetPercent: 20,
+          alertPercent: 90,
         },
       ],
       {}
