@@ -6,12 +6,12 @@ const jwt = require("jsonwebtoken");
 const login = (req, res) => {
   User.findOne({
     where: {
-      username: req.body.username,
+      username: req.query.username,
     },
   })
     .then((foundUser) => {
       if (foundUser) {
-        bcrypt.compare(req.body.password, foundUser.password, (err, match) => {
+        bcrypt.compare(req.query.password, foundUser.password, (err, match) => {
           if (match) {
             const token = jwt.sign(
               {
