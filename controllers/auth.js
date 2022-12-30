@@ -1,10 +1,7 @@
 const User = require("../models").User;
-const Deposit = require("../models").Deposit;
-const Withdraw = require("../models").Withdraw;
-const DepositType = require("../models").DepositType;
-const WithdrawType = require("../models").WithdrawType;
 
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const login = (req, res) => {
   User.findOne({
@@ -16,48 +13,17 @@ const login = (req, res) => {
       if (foundUser) {
         bcrypt.compare(req.body.password, foundUser.password, (err, match) => {
           if (match) {
-            User.findByPk(foundUser.id, {
-              include: [
-                {
-                  model: Deposit,
-                  attributes: [
-                    "id",
-                    "name",
-                    "amount",
-                    "date",
-                    "typeId",
-                    "userId",
-                  ],
-                },
-                {
-                  model: DepositType,
-                  attributes: ["id", "name", "budgetPercent", "alertPercent"],
-                },
-                {
-                  model: Withdraw,
-                  attributes: [
-                    "id",
-                    "name",
-                    "amount",
-                    "date",
-                    "typeId",
-                    "withdrawFromId",
-                    "userId",
-                  ],
-                },
-                {
-                  model: WithdrawType,
-                  attributes: ["id", "name", "budgetPercent", "alertPercent"],
-                },
-              ],
-              attributes: ["id", "username"],
-            })
-              .then((user) => {
-                res.json(user);
-              })
-              .catch((err) => {
-                res.json(err);
-              });
+            const token = jwt.sign(
+              {
+                username: foundUser.username,
+                id: foundUser.id,
+              },
+              process.env.JWT_SECRET,
+              {
+                expiresIn: "30 days",
+              }
+            );
+            res.json(token);
           } else {
             return res.sendStatus(400);
           }
@@ -77,51 +43,20 @@ const signup = (req, res) => {
       req.body.password = hashedPassword;
       User.create(req.body)
         .then((newUser) => {
-          User.findByPk(newUser.id, {
-            include: [
-              {
-                model: Deposit,
-                attributes: [
-                  "id",
-                  "name",
-                  "amount",
-                  "date",
-                  "typeId",
-                  "userId",
-                ],
-              },
-              {
-                model: DepositType,
-                attributes: ["id", "name", "budgetPercent", "alertPercent"],
-              },
-              {
-                model: Withdraw,
-                attributes: [
-                  "id",
-                  "name",
-                  "amount",
-                  "date",
-                  "typeId",
-                  "withdrawFromId",
-                  "userId",
-                ],
-              },
-              {
-                model: WithdrawType,
-                attributes: ["id", "name", "budgetPercent", "alertPercent"],
-              },
-            ],
-            attributes: ["id", "username"],
-          })
-            .then((user) => {
-              res.json(user);
-            })
-            .catch((err) => {
-              res.json(err);
-            });
+          const token = jwt.sign(
+            {
+              username: newUser.username,
+              id: newUser.id,
+            },
+            process.env.JWT_SECRET,
+            {
+              expiresIn: "30 days",
+            }
+          );
+          res.json(token);
         })
         .catch((err) => {
-          console.log(err);
+          res.json(err);
         });
     });
   });

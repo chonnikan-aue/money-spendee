@@ -20,6 +20,71 @@ const getUsers = (req, res) => {
 
 const getUser = (req, res) => {
   User.findByPk(req.params.userId, {
+    include: [
+      {
+        model: Deposit,
+        attributes: ["id", "name", "amount", "date", "typeId", "userId"],
+      },
+      {
+        model: DepositType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+      {
+        model: Withdraw,
+        attributes: [
+          "id",
+          "name",
+          "amount",
+          "date",
+          "typeId",
+          "withdrawFromId",
+          "userId",
+        ],
+      },
+      {
+        model: WithdrawType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+    ],
+    attributes: ["id", "username"],
+  })
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+};
+
+const getUserByUsername = (req, res) => {
+  User.findOne({
+    where: { username: req.params.username },
+    include: [
+      {
+        model: Deposit,
+        attributes: ["id", "name", "amount", "date", "typeId", "userId"],
+      },
+      {
+        model: DepositType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+      {
+        model: Withdraw,
+        attributes: [
+          "id",
+          "name",
+          "amount",
+          "date",
+          "typeId",
+          "withdrawFromId",
+          "userId",
+        ],
+      },
+      {
+        model: WithdrawType,
+        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+      },
+    ],
     attributes: ["id", "username"],
   })
     .then((user) => {
@@ -127,6 +192,7 @@ const deleteUser = (req, res) => {
 module.exports = {
   getUsers,
   getUser,
+  getUserByUsername,
   putUser,
   deleteUser,
 };
