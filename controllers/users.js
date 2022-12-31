@@ -8,7 +8,7 @@ const bcrypt = require("bcryptjs");
 
 const getUsers = (req, res) => {
   User.findAll({
-    attributes: ["id", "username"],
+    attributes: ["id", "username", "fixedIncome"],
   })
     .then((users) => {
       res.json(users);
@@ -46,7 +46,7 @@ const getUser = (req, res) => {
         attributes: ["id", "name", "budgetPercent", "alertPercent"],
       },
     ],
-    attributes: ["id", "username"],
+    attributes: ["id", "username", "fixedIncome"],
   })
     .then((user) => {
       res.json(user);
@@ -85,7 +85,7 @@ const getUserByUsername = (req, res) => {
         attributes: ["id", "name", "budgetPercent", "alertPercent"],
       },
     ],
-    attributes: ["id", "username"],
+    attributes: ["id", "username", "fixedIncome"],
   })
     .then((user) => {
       res.json(user);
@@ -108,7 +108,7 @@ const putUser = (req, res) => {
         })
           .then((updatedUser) => {
             User.findByPk(req.params.userId, {
-              attributes: ["id", "username"],
+              attributes: ["id", "username", "fixedIncome"],
             })
               .then((user) => {
                 res.json(user);
@@ -134,7 +134,7 @@ const putUser = (req, res) => {
         })
           .then((updatedUser) => {
             User.findByPk(req.params.userId, {
-              attributes: ["id", "username"],
+              attributes: ["id", "username", "fixedIncome"],
             })
               .then((user) => {
                 res.json(user);
