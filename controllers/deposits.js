@@ -79,7 +79,7 @@ const postDeposit = (req, res) => {
         include: [
           {
             model: DepositType,
-            attributes: ["id", "name", "budgetPercent", "alertPercent"],
+            attributes: ["id", "name"],
           },
           {
             model: User,
@@ -111,7 +111,7 @@ const putDeposit = (req, res) => {
         include: [
           {
             model: DepositType,
-            attributes: ["id", "name", "budgetPercent", "alertPercent"],
+            attributes: ["id", "name"],
           },
           {
             model: User,

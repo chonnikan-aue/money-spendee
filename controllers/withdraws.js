@@ -12,7 +12,7 @@ const getWithdraws = (req, res) => {
       },
       {
         model: DepositType,
-        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+        attributes: ["id", "name"],
       },
       {
         model: User,
@@ -49,7 +49,7 @@ const getWithdrawsByUser = (req, res) => {
       },
       {
         model: DepositType,
-        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+        attributes: ["id", "name"],
       },
       {
         model: User,
@@ -83,7 +83,7 @@ const getWithdraw = (req, res) => {
       },
       {
         model: DepositType,
-        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+        attributes: ["id", "name"],
       },
       {
         model: User,
@@ -120,7 +120,7 @@ const postWithdraw = (req, res) => {
           },
           {
             model: DepositType,
-            attributes: ["id", "name", "budgetPercent", "alertPercent"],
+            attributes: ["id", "name"],
           },
           {
             model: User,
@@ -164,7 +164,7 @@ const putWithdraw = (req, res) => {
           },
           {
             model: DepositType,
-            attributes: ["id", "name", "budgetPercent", "alertPercent"],
+            attributes: ["id", "name"],
           },
           {
             model: User,
