@@ -16,14 +16,14 @@ module.exports = {
         {
           name: "Fixed Income",
           amount: 10000,
-          date: "2023-01-02",
+          date: "2023-01-01",
           typeId: 2,
           userId: 2,
         },
         {
           name: "Fixed Income",
           amount: 10000,
-          date: "2023-01-03",
+          date: "2023-01-01",
           typeId: 3,
           userId: 3,
         },

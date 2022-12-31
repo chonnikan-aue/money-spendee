@@ -21,7 +21,7 @@ const methodOverride = require("method-override");
 app.use(methodOverride("_method"));
 
 const verifyToken = (req, res, next) => {
-  const bearerHeader = req.headers["Authorization"];
+  const bearerHeader = req.headers.authorization;
   if (typeof bearerHeader !== "undefined") {
     const bearer = bearerHeader.split(" ");
     const bearerToken = bearer[1];
@@ -36,11 +36,11 @@ const verifyToken = (req, res, next) => {
 };
 
 app.use("/auth", routes.auth);
-app.use("/user", routes.users);
-app.use("/deposit", routes.deposits);
-app.use("/withdraw", routes.withdraws);
-app.use("/deposit-type", routes.depositTypes);
-app.use("/withdraw-type", routes.withdrawTypes);
+app.use("/user", verifyToken, routes.users);
+app.use("/deposit", verifyToken, routes.deposits);
+app.use("/withdraw", verifyToken, routes.withdraws);
+app.use("/deposit-type", verifyToken, routes.depositTypes);
+app.use("/withdraw-type", verifyToken, routes.withdrawTypes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Listening on port ${process.env.PORT}`);

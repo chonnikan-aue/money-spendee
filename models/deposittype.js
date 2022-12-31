@@ -17,8 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       userId: DataTypes.INTEGER,
-      budgetPercent: DataTypes.FLOAT,
-      alertPercent: DataTypes.FLOAT,
     },
     {
       sequelize,
