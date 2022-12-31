@@ -27,7 +27,7 @@ const getUser = (req, res) => {
       },
       {
         model: DepositType,
-        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+        attributes: ["id", "name"],
       },
       {
         model: Withdraw,
@@ -66,7 +66,7 @@ const getUserByUsername = (req, res) => {
       },
       {
         model: DepositType,
-        attributes: ["id", "name", "budgetPercent", "alertPercent"],
+        attributes: ["id", "name"],
       },
       {
         model: Withdraw,
