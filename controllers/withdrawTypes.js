@@ -6,7 +6,7 @@ const getWithdrawTypes = (req, res) => {
     include: [
       {
         model: User,
-        attributes: ["id", "username"],
+        attributes: ["id", "username", "fixedIncome"],
       },
     ],
     attributes: ["id", "name", "userId", "budgetPercent", "alertPercent"],
@@ -27,7 +27,7 @@ const getWithdrawTypesByUser = (req, res) => {
         attributes: ["id", "name", "userId", "budgetPercent", "alertPercent"],
       },
     ],
-    attributes: ["id", "username"],
+    attributes: ["id", "username", "fixedIncome"],
   })
     .then((user) => {
       res.json(user);
@@ -42,7 +42,7 @@ const getWithdrawType = (req, res) => {
     include: [
       {
         model: User,
-        attributes: ["id", "username"],
+        attributes: ["id", "username", "fixedIncome"],
       },
     ],
     attributes: ["id", "name", "userId", "budgetPercent", "alertPercent"],
@@ -63,7 +63,7 @@ const postWithdrawType = (req, res) => {
         include: [
           {
             model: User,
-            attributes: ["id", "username"],
+            attributes: ["id", "username", "fixedIncome"],
           },
         ],
         attributes: ["id", "name", "userId", "budgetPercent", "alertPercent"],
@@ -91,7 +91,7 @@ const putWithdrawType = (req, res) => {
         include: [
           {
             model: User,
-            attributes: ["id", "username"],
+            attributes: ["id", "username", "fixedIncome"],
           },
         ],
         attributes: ["id", "name", "userId", "budgetPercent", "alertPercent"],

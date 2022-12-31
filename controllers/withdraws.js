@@ -16,7 +16,7 @@ const getWithdraws = (req, res) => {
       },
       {
         model: User,
-        attributes: ["id", "username"],
+        attributes: ["id", "username", "fixedIncome"],
       },
     ],
     attributes: [
@@ -53,7 +53,7 @@ const getWithdrawsByUser = (req, res) => {
       },
       {
         model: User,
-        attributes: ["id", "username"],
+        attributes: ["id", "username", "fixedIncome"],
       },
     ],
     attributes: [
@@ -87,7 +87,7 @@ const getWithdraw = (req, res) => {
       },
       {
         model: User,
-        attributes: ["id", "username"],
+        attributes: ["id", "username", "fixedIncome"],
       },
     ],
     attributes: [
@@ -124,7 +124,7 @@ const postWithdraw = (req, res) => {
           },
           {
             model: User,
-            attributes: ["id", "username"],
+            attributes: ["id", "username", "fixedIncome"],
           },
         ],
         attributes: [
@@ -168,7 +168,7 @@ const putWithdraw = (req, res) => {
           },
           {
             model: User,
-            attributes: ["id", "username"],
+            attributes: ["id", "username", "fixedIncome"],
           },
         ],
         attributes: [
