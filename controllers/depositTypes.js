@@ -6,7 +6,7 @@ const getDepositTypes = (req, res) => {
     include: [
       {
         model: User,
-        attributes: ["id", "username"],
+        attributes: ["id", "username", "fixedIncome"],
       },
     ],
     attributes: ["id", "name", "userId"],
@@ -27,7 +27,7 @@ const getDepositTypesByUser = (req, res) => {
         attributes: ["id", "name", "userId"],
       },
     ],
-    attributes: ["id", "username"],
+    attributes: ["id", "username", "fixedIncome"],
   })
     .then((user) => {
       res.json(user);
@@ -42,7 +42,7 @@ const getDepositType = (req, res) => {
     include: [
       {
         model: User,
-        attributes: ["id", "username"],
+        attributes: ["id", "username", "fixedIncome"],
       },
     ],
     attributes: ["id", "name", "userId"],
@@ -63,7 +63,7 @@ const postDepositType = (req, res) => {
         include: [
           {
             model: User,
-            attributes: ["id", "username"],
+            attributes: ["id", "username", "fixedIncome"],
           },
         ],
         attributes: ["id", "name", "userId"],
@@ -90,7 +90,7 @@ const putDepositType = (req, res) => {
       include: [
         {
           model: User,
-          attributes: ["id", "username"],
+          attributes: ["id", "username", "fixedIncome"],
         },
       ],
       attributes: ["id", "name", "userId"],

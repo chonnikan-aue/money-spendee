@@ -41,6 +41,7 @@ const signup = (req, res) => {
     bcrypt.hash(req.body.password, salt, (err, hashedPassword) => {
       if (err) return res.sendStatus(500);
       req.body.password = hashedPassword;
+      req.body.fixedIncome = 0;
       User.create(req.body)
         .then((newUser) => {
           const token = jwt.sign(

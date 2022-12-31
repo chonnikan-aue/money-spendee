@@ -11,7 +11,7 @@ const getDeposits = (req, res) => {
       },
       {
         model: User,
-        attributes: ["id", "username"],
+        attributes: ["id", "username", "fixedIncome"],
       },
     ],
     attributes: ["id", "name", "amount", "date", "typeId", "userId"],
@@ -36,7 +36,7 @@ const getDepositsByUser = (req, res) => {
       },
       {
         model: User,
-        attributes: ["id", "username"],
+        attributes: ["id", "username", "fixedIncome"],
       },
     ],
     attributes: ["id", "name", "amount", "date", "typeId", "userId"],
@@ -58,7 +58,7 @@ const getDeposit = (req, res) => {
       },
       {
         model: User,
-        attributes: ["id", "username"],
+        attributes: ["id", "username", "fixedIncome"],
       },
     ],
     attributes: ["id", "name", "amount", "date", "typeId", "userId"],
@@ -83,7 +83,7 @@ const postDeposit = (req, res) => {
           },
           {
             model: User,
-            attributes: ["id", "username"],
+            attributes: ["id", "username", "fixedIncome"],
           },
         ],
         attributes: ["id", "name", "amount", "date", "typeId", "userId"],
@@ -115,7 +115,7 @@ const putDeposit = (req, res) => {
           },
           {
             model: User,
-            attributes: ["id", "username"],
+            attributes: ["id", "username", "fixedIncome"],
           },
         ],
         attributes: ["id", "name", "amount", "date", "typeId", "userId"],
