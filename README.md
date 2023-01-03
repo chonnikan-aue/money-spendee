@@ -67,6 +67,33 @@ __ERD__.
 
 ### Actual ERD
 
+__Deposits__.
+
+![Deposits](https://user-images.githubusercontent.com/116058313/210309667-906445c4-e9e7-41f4-a8f1-996d0b81f0ef.jpg)
+
+__DepositTypes__.
+
+![DepositTypes](https://user-images.githubusercontent.com/116058313/210309673-a3409b8c-1581-4256-b51c-c833910b0240.jpg)
+
+__Users__.
+
+![Users](https://user-images.githubusercontent.com/116058313/210309677-afc2d91c-1ea2-4de6-9063-cfaa478068cb.jpg)
+
+__Withdraws__.
+
+![Withdraws](https://user-images.githubusercontent.com/116058313/210309678-dab828d6-b839-4c60-a268-188d4bdc4858.jpg)
+
+__withdrawTypes__.
+
+![withdrawTypes](https://user-images.githubusercontent.com/116058313/210309681-d504ae5b-bf4a-4f5d-b8bb-1e24b873f0b5.jpg)
+
+__Relationship__.
+
+![relationship](https://user-images.githubusercontent.com/116058313/210309676-b803bec7-a4ec-4db7-b674-ff68f10d2469.jpg)
+
+__ERD__.
+
+![ERD](https://user-images.githubusercontent.com/116058313/210309674-c2808fa9-1814-4c07-a4db-b4afb25cac2d.jpg)
 
 
 ## Teachnology used
