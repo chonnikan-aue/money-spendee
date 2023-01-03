@@ -33,13 +33,37 @@ run the server
 
 ### Planning ERD
 
-![GroupUser](https://user-images.githubusercontent.com/116058313/210305606-59a82c5a-02b6-4fb4-8dfc-9ad99c0db030.JPG)
-![relationship](https://user-images.githubusercontent.com/116058313/210305611-fcb6335e-e6a3-4832-9189-567dba512f5a.JPG)
+Transaction table
+
 ![transactions](https://user-images.githubusercontent.com/116058313/210305619-bedb1a54-8ef7-4bdc-a810-bcc17041c1fa.JPG)
+
+Types table
+
 ![types](https://user-images.githubusercontent.com/116058313/210305631-eb4aab6d-79d3-44a1-ae3b-b403bd3d3915.JPG)
+
+Users table
+
 ![users](https://user-images.githubusercontent.com/116058313/210305639-9a08ccea-623d-422b-94ca-a2ae05f4ad59.JPG)
-![budgets](https://user-images.githubusercontent.com/116058313/210305586-26e93b9d-79ec-4965-91ad-ed22dc977901.JPG)![ERD](https://user-images.githubusercontent.com/116058313/210305596-ae246a6f-ab8e-4bfc-8bc2-170ad8253499.JPG)
+
+Budgets table
+
+![budgets](https://user-images.githubusercontent.com/116058313/210305586-26e93b9d-79ec-4965-91ad-ed22dc977901.JPG)
+
+Groups table
+
 ![groups](https://user-images.githubusercontent.com/116058313/210305603-f2d2f773-7872-47c7-ad55-1e8b4c5321b9.JPG)
+
+GroupUser table
+
+![GroupUser](https://user-images.githubusercontent.com/116058313/210305606-59a82c5a-02b6-4fb4-8dfc-9ad99c0db030.JPG)
+
+Relationship
+
+![relationship](https://user-images.githubusercontent.com/116058313/210305611-fcb6335e-e6a3-4832-9189-567dba512f5a.JPG)
+
+ERD
+
+![ERD](https://user-images.githubusercontent.com/116058313/210305596-ae246a6f-ab8e-4bfc-8bc2-170ad8253499.JPG)
 
 ### Actual ERD
 
