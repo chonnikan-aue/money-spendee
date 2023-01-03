@@ -6,7 +6,7 @@ MONey Spendee application is a money management application which allow users to
 
 ## Installation
 
-_only for user who want to install the application in your local_**.
+_only for user who want to install the application in your local_.
 
 ### `CREATE DATABASE money_spendee_dev` 
 
