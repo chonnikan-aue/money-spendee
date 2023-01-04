@@ -5,5 +5,16 @@
     "database": "money_spendee_dev",
     "host": "127.0.0.1",
     "dialect": "postgres"
+  },
+  "production": {
+    "username": "chonnikan-aue",
+    "password": "v2_3xddY_eRVEBV9qm4NKga2dE9ETXha",
+    "database": "chonnikan-aue/money-spendee",
+    "host": "db.bit.io",
+    "port": 5432,
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": true
+    }
   }
 }
