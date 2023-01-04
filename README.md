@@ -26,8 +26,8 @@ run the server
 
 ## Link
 
-[Deploy Link]()
-[Github Link]()
+[Deploy Link](https://money-spendee.netlify.app)
+[Github Link](https://github.com/chonnikan-aue/money-spendee)
 
 ## ER Diagram
 
